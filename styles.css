@@ -1,0 +1,332 @@
+.vc-qg-window {
+    --qg-text: rgb(255 255 255 / 92%);
+    --qg-muted: rgb(255 255 255 / 48%);
+    --qg-faint: rgb(255 255 255 / 6%);
+    --qg-hover: rgb(255 255 255 / 10%);
+    --qg-line: rgb(255 255 255 / 9%);
+
+    position: fixed;
+    box-sizing: border-box;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    max-height: min(620px, 80vh);
+    overflow: hidden;
+    border: 1px solid var(--qg-line);
+    border-radius: 14px;
+    background: rgb(0 0 0 / 84%);
+    backdrop-filter: blur(24px);
+    box-shadow: 0 24px 60px rgb(0 0 0 / 50%);
+    color: var(--qg-text);
+    font-size: 13px;
+}
+
+.vc-qg-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 10px 11px 14px;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+}
+
+.vc-qg-header:active {
+    cursor: grabbing;
+}
+
+.vc-qg-dot {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 25%);
+}
+
+.vc-qg-dot.vc-qg-working {
+    background: #fff;
+    animation: vc-qg-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes vc-qg-pulse {
+    50% { opacity: 0.35; }
+}
+
+.vc-qg-title {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.vc-qg-title strong {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.vc-qg-title span {
+    color: var(--qg-muted);
+    font-size: 12px;
+}
+
+.vc-qg-icon-btn {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--qg-muted);
+    cursor: pointer;
+}
+
+.vc-qg-icon-btn:hover {
+    background: var(--qg-hover);
+    color: var(--qg-text);
+}
+
+.vc-qg-toolbar {
+    display: flex;
+    gap: 6px;
+    padding: 0 12px 12px;
+}
+
+.vc-qg-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 12px 12px;
+}
+
+.vc-qg-filter {
+    height: 24px;
+    padding: 0 10px;
+    border: 1px solid var(--qg-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--qg-muted);
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 120ms, color 120ms;
+}
+
+.vc-qg-filter:hover {
+    background: var(--qg-faint);
+    color: var(--qg-text);
+}
+
+.vc-qg-filter-on {
+    border-color: transparent;
+    background: rgb(255 255 255 / 92%);
+    color: #0b0b0c;
+}
+
+.vc-qg-filter-on:hover {
+    background: #fff;
+    color: #0b0b0c;
+}
+
+.vc-qg-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    padding: 0 12px;
+    border: 1px solid var(--qg-line);
+    border-radius: 8px;
+    background: var(--qg-faint);
+    color: var(--qg-text);
+    font-size: 12.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 120ms, opacity 120ms;
+}
+
+.vc-qg-btn:not(:disabled):hover {
+    background: var(--qg-hover);
+}
+
+.vc-qg-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.vc-qg-btn-wide {
+    flex: 1;
+}
+
+.vc-qg-btn-square {
+    width: 30px;
+    padding: 0;
+}
+
+.vc-qg-btn-primary {
+    border-color: transparent;
+    background: rgb(255 255 255 / 92%);
+    color: #0b0b0c;
+    font-weight: 600;
+}
+
+.vc-qg-btn-primary:not(:disabled):hover {
+    background: #fff;
+}
+
+.vc-qg-alert {
+    margin: 0 12px 12px;
+    padding: 9px 11px;
+    border: 1px solid var(--qg-line);
+    border-left: 2px solid rgb(255 255 255 / 70%);
+    border-radius: 8px;
+    background: var(--qg-faint);
+    color: var(--qg-text);
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.vc-qg-list {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    border-top: 1px solid var(--qg-line);
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 14%) transparent;
+}
+
+.vc-qg-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--qg-line);
+    transition: background 120ms;
+}
+
+.vc-qg-row:last-child {
+    border-bottom: 0;
+}
+
+.vc-qg-row:hover {
+    background: rgb(255 255 255 / 3%);
+}
+
+.vc-qg-active {
+    background: rgb(255 255 255 / 5%);
+}
+
+.vc-qg-disabled {
+    opacity: 0.45;
+}
+
+.vc-qg-row-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.vc-qg-row-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.vc-qg-row-name {
+    overflow: hidden;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vc-qg-row-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    color: var(--qg-muted);
+    font-size: 11.5px;
+}
+
+.vc-qg-row-meta > span {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.vc-qg-chip {
+    color: var(--qg-text);
+}
+
+.vc-qg-row-meta > .vc-qg-reward {
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vc-qg-urgent {
+    flex-shrink: 0;
+    color: var(--qg-text);
+}
+
+.vc-qg-bar {
+    height: 3px;
+    overflow: hidden;
+    border-radius: 99px;
+    background: rgb(255 255 255 / 10%);
+}
+
+.vc-qg-bar-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: rgb(255 255 255 / 85%);
+    transition: width 900ms linear;
+}
+
+.vc-qg-row-status {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    color: var(--qg-muted);
+    font-size: 11.5px;
+    font-variant-numeric: tabular-nums;
+}
+
+.vc-qg-empty {
+    padding: 28px 0;
+    color: var(--qg-muted);
+    text-align: center;
+}
+
+.vc-qg-page-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    height: 32px;
+    padding: 0 12px;
+    border: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 8px;
+    background: rgb(255 255 255 / 6%);
+    color: var(--text-default, #fff);
+    font-size: 14px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition: background 120ms;
+}
+
+.vc-qg-page-btn:hover {
+    background: rgb(255 255 255 / 11%);
+}
+
+.vc-qg-page-btn.vc-qg-working svg {
+    animation: vc-qg-pulse 1.6s ease-in-out infinite;
+}
+
+.vc-qg-chat-active {
+    color: #fff;
+}
