@@ -1,0 +1,67 @@
+name: Problema / Bug report
+description: Algo não funcionou como deveria. / Something didn't work as expected.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: O que aconteceu? / What happened?
+      description: Conte o que você fez e o que apareceu. Se tiver mensagem de erro no painel, copie aqui. / What you did and what showed up, including any panel error message.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: O que você esperava? / What did you expect?
+  - type: input
+    id: plugin
+    attributes:
+      label: Versão do plugin / Plugin version
+      description: Rode `git log -1 --oneline` dentro da pasta do plugin. / Run `git log -1 --oneline` in the plugin folder.
+      placeholder: 437c32a
+    validations:
+      required: true
+  - type: input
+    id: equicord
+    attributes:
+      label: Versão do Equicord / Equicord version
+      description: Rode `git log -1 --oneline` dentro da pasta do Equicord. / Run `git log -1 --oneline` in the Equicord folder.
+    validations:
+      required: true
+  - type: dropdown
+    id: client
+    attributes:
+      label: App / Client
+      options:
+        - Discord Stable
+        - Discord PTB
+        - Discord Canary
+        - Vesktop
+        - Equibop
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Sistema / OS
+      options:
+        - Linux
+        - Windows
+        - macOS
+    validations:
+      required: true
+  - type: dropdown
+    id: quest
+    attributes:
+      label: Tipo de missão / Quest type
+      options:
+        - Vídeo / Video
+        - Jogo / Game
+        - Atividade / Activity
+        - Não é sobre uma missão / Not quest related
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console
+      description: Opcional. Abra o console (Ctrl+Shift+I), procure linhas com "QuestGrinder" e cole aqui. / Optional. Open the console (Ctrl+Shift+I) and paste lines mentioning "QuestGrinder".
+      render: text
