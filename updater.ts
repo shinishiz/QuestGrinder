@@ -26,6 +26,9 @@ export async function checkForUpdates() {
         case "not-git":
         case "up-to-date":
             return;
+        case "local-changes":
+            logger.info("Tem arquivos editados na pasta do plugin, atualização pulada.");
+            return;
         case "error":
             logger.warn("Não consegui atualizar o plugin:", res.message);
             return;

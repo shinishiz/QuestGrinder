@@ -24,6 +24,8 @@ const AUTHOR_ID = "461683460797628436";
 let refreshTimer: ReturnType<typeof setInterval> | undefined;
 let updateTimer: ReturnType<typeof setTimeout> | undefined;
 let updateInterval: ReturnType<typeof setInterval> | undefined;
+let newQuestTimer: ReturnType<typeof setTimeout> | undefined;
+let autoStartTimer: ReturnType<typeof setTimeout> | undefined;
 
 // O clique no avatar de autor abre o card de contribuidor do Equicord; aqui ele abre o perfil do Discord.
 function onAuthorClick(event: MouseEvent) {
@@ -149,8 +151,10 @@ export default definePlugin({
 
     flux: {
         QUESTS_FETCH_CURRENT_QUESTS_SUCCESS() {
-            setTimeout(checkNewQuests, 1000);
-            if (settings.store.autoStart) setTimeout(enqueueAll, 3000);
+            clearTimeout(newQuestTimer);
+            clearTimeout(autoStartTimer);
+            newQuestTimer = setTimeout(checkNewQuests, 1000);
+            autoStartTimer = setTimeout(() => settings.store.autoStart && enqueueAll(), 3000);
         },
         LOGOUT() {
             stopAll();
@@ -171,6 +175,8 @@ export default definePlugin({
         clearInterval(refreshTimer);
         clearTimeout(updateTimer);
         clearInterval(updateInterval);
+        clearTimeout(newQuestTimer);
+        clearTimeout(autoStartTimer);
         stopAll();
         unmountPanel();
     },

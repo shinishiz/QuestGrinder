@@ -43,6 +43,7 @@ const COOLDOWN_MS = [20_000, 45_000] as const;
 const ENROLL_SETTLE_MS = [2_000, 5_000] as const;
 const HEARTBEAT_MAX_MS = 60_000;
 const HEARTBEAT_TIMEOUT_MS = 10_000;
+const REQUEST_TIMEOUT_MS = 15_000;
 const ATTEMPTS = 3;
 const RETRY_MS = 2_500;
 
@@ -71,6 +72,28 @@ function wait(ms: number, signal: AbortSignal): Promise<void> {
         }
 
         signal.addEventListener("abort", onAbort, { once: true });
+    });
+}
+
+// Para de esperar quando a fila é parada ou o Discord demora demais; uma resposta atrasada é ignorada.
+function guard<T>(promise: Promise<T>, signal: AbortSignal): Promise<T> {
+    return new Promise((resolve, reject) => {
+        if (signal.aborted) return reject(signal.reason);
+
+        const timeout = setTimeout(() => finish(() => reject(new Error("O Discord não respondeu a tempo."))), REQUEST_TIMEOUT_MS);
+
+        function finish(callback: () => void) {
+            clearTimeout(timeout);
+            signal.removeEventListener("abort", onAbort);
+            callback();
+        }
+
+        function onAbort() {
+            finish(() => reject(signal.reason));
+        }
+
+        signal.addEventListener("abort", onAbort, { once: true });
+        promise.then(value => finish(() => resolve(value)), error => finish(() => reject(error)));
     });
 }
 
@@ -420,13 +443,21 @@ async function runJob(job: Job, signal: AbortSignal): Promise<void> {
 
     if (isVideo(task)) await runVideo(job, quest, task, signal);
     else await runHeartbeat(job, quest, task, signal);
+
+    // Só conta como feita quando o Discord marca a missão como concluída.
+    for (let i = 0; !QuestStore.getQuest(job.questId)?.userStatus?.completedAt; i++) {
+        if (i === 10) void refreshQuests(true);
+        if (i === 20) throw new QuestError(t(`O Discord não confirmou a missão "${job.name}".`, `Discord didn't confirm quest "${job.name}".`));
+        await wait(500, signal);
+    }
 }
 
 async function withRetry<T>(action: () => Promise<T>, signal: AbortSignal): Promise<T> {
     for (let attempt = 1; ; attempt++) {
         try {
-            return await action();
+            return await guard(action(), signal);
         } catch (error) {
+            if (signal.aborted) throw error;
             if (isRateLimited(error)) throw new QuestError(rateLimited());
             if (attempt >= ATTEMPTS) throw error;
             logger.warn(`Tentativa ${attempt} falhou, tentando de novo`, error);
@@ -446,13 +477,13 @@ async function enroll(quest: Quest, task: QuestTask, signal: AbortSignal): Promi
     }
 
     const startsDirectly = task.type === QuestTaskType.WATCH_VIDEO || task.type === QuestTaskType.PLAY_ACTIVITY;
-    const result = await enrollInQuest(quest.id, {
+    const result = await guard(enrollInQuest(quest.id, {
         questContent: QuestTargetedContent.QUEST_HOME_DESKTOP,
         questContentCTA: startsDirectly ? QuestCTA.START_QUEST : QuestCTA.ACCEPT_QUEST,
         sourceQuestContent: QuestTargetedContent.QUEST_HOME_DESKTOP,
         questContentPosition: position === -1 ? undefined : position,
         questContentRowIndex: position === -1 ? undefined : Math.floor(position / 3),
-    });
+    }), signal);
 
     if (isRateLimited(result.error)) throw new QuestError(rateLimited());
 

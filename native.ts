@@ -18,6 +18,7 @@ export type UpdateResult =
     | { status: "updated"; commits: string[]; }
     | { status: "up-to-date"; }
     | { status: "not-git"; }
+    | { status: "local-changes"; }
     | { status: "error"; message: string; };
 
 function run(cmd: string, args: string[], cwd: string) {
@@ -59,7 +60,10 @@ export async function pullUpdates(_: unknown): Promise<UpdateResult> {
         const commits = log.stdout.trim().split("\n").filter(Boolean);
         if (!commits.length) return { status: "up-to-date" };
 
-        // --ff-only nunca mistura com mudanças locais: se a pessoa editou os arquivos, falha sem estragar nada.
+        const changes = await run("git", ["status", "--porcelain", "--untracked-files=no"], dir);
+        if (changes.stdout.trim()) return { status: "local-changes" };
+
+        // Com commits locais que não estão no GitHub, o --ff-only falha sem estragar nada.
         await run("git", ["pull", "--ff-only", "--quiet"], dir);
         return { status: "updated", commits };
     } catch (e) {
