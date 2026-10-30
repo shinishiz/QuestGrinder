@@ -17,10 +17,24 @@ body:
     id: plugin
     attributes:
       label: Versão do plugin / Plugin version
-      description: Rode `git log -1 --oneline` dentro da pasta do plugin. / Run `git log -1 --oneline` in the plugin folder.
-      placeholder: 437c32a
+      description: A que aparece em Configurações → Plugins → QuestGrinder. É a versão que está rodando no Discord. / The one shown in Settings → Plugins → QuestGrinder. It's the version Discord is actually running.
+      placeholder: "1.0.2"
     validations:
       required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit baixado / Downloaded commit
+      description: Opcional. Rode `git log -1 --oneline` dentro da pasta do plugin. O atualizador baixa antes de aplicar, então isso pode ser mais novo que a versão acima até você recompilar ou clicar na notificação de atualização. / Optional. Run `git log -1 --oneline` in the plugin folder. The updater downloads before applying, so this can be newer than the version above until you rebuild or click the update notification.
+  - type: dropdown
+    id: rebuilt
+    attributes:
+      label: Depois da última atualização, você aplicou ela? / Did you apply the last update?
+      description: Aplicar = clicar na notificação "QuestGrinder atualizado", rodar `pnpm build` ou o Equicord ter atualizado. / Applying = clicking the "QuestGrinder updated" notification, running `pnpm build`, or an Equicord update.
+      options:
+        - Sim / Yes
+        - Não / No
+        - Não sei / Not sure
   - type: input
     id: equicord
     attributes:

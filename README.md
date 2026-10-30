@@ -45,7 +45,7 @@ Reinicie o Discord e ative o **QuestGrinder** em Configurações → Plugins.
 
 ## Compatibilidade
 
-| | |
+| Item | Situação |
 |---|---|
 | Versão atual | [![versão](https://img.shields.io/github/v/release/shinishiz/QuestGrinder?style=flat-square&label=)](https://github.com/shinishiz/QuestGrinder/releases/latest) |
 | Testado com | Equicord `a5753f70` (28/10/2026), Discord Stable 1.0.167 |
