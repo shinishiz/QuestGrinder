@@ -10,7 +10,7 @@ Userplugin do [Equicord](https://github.com/Equicord/Equicord) que completa suas
 
 [Instalação](#instalação) · [Compatibilidade](#compatibilidade) · [Perguntas frequentes](#perguntas-frequentes) · [Versões](https://github.com/shinishiz/QuestGrinder/releases) · [Reportar problema](https://github.com/shinishiz/QuestGrinder/issues/new/choose)
 
-<p align="center"><img src="assets/painel.png" width="380" alt="Painel do QuestGrinder"></p>
+<p align="center"><img src="assets/preview-pt.png" width="380" alt="Painel do QuestGrinder"></p>
 
 ## O que ele faz
 
@@ -97,7 +97,7 @@ Feito por **chess** ([@shinishiz](https://github.com/shinishiz)). Código sob a 
 
 An [Equicord](https://github.com/Equicord/Equicord) userplugin that completes your Discord quests automatically, one at a time, with a floating panel to follow and control the queue. The plugin shows up in English whenever your Discord isn't set to Portuguese.
 
-<p align="center"><img src="assets/panel-en.png" width="380" alt="QuestGrinder panel"></p>
+<p align="center"><img src="assets/preview-en.png" width="380" alt="QuestGrinder panel"></p>
 
 ### Features
 
