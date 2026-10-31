@@ -5,13 +5,13 @@
  */
 
 import { ChatBarButton, type ChatBarButtonFactory } from "@api/ChatButtons";
+import { Button } from "@components/Button";
 import { Paragraph } from "@components/Paragraph";
 import { openUserProfile } from "@utils/discord";
 import { Margins } from "@utils/margins";
 import definePlugin from "@utils/types";
 import type { Quest } from "@vencord/discord-types";
 import { onceReady } from "@webpack";
-import { Button } from "@webpack/common";
 
 import { t } from "./i18n";
 import { openPanel, PageButton, QuestIcon, togglePanel, unmountPanel, useEngine } from "./Panel";
@@ -22,7 +22,7 @@ import { checkForUpdates } from "./updater";
 
 const AUTHOR_ID = "461683460797628436";
 // Mudar a cada release: é o que aparece nas configurações e confirma qual código está rodando.
-const PLUGIN_VERSION = "1.0.2";
+const PLUGIN_VERSION = "1.0.4";
 let refreshTimer: ReturnType<typeof setInterval> | undefined;
 let updateTimer: ReturnType<typeof setTimeout> | undefined;
 let updateInterval: ReturnType<typeof setInterval> | undefined;
@@ -148,7 +148,7 @@ export default definePlugin({
                 {t("Faz uma missão por vez, no mesmo ritmo do app, e para se der algum erro.", "Does one quest at a time, at the same pace as the app, and stops on any error.")}
             </Paragraph>
             <Paragraph className={Margins.top8}>{t(`Versão ${PLUGIN_VERSION}`, `Version ${PLUGIN_VERSION}`)}</Paragraph>
-            <Button size={Button.Sizes.SMALL} onClick={openPanel} className={Margins.top8}>{t("Abrir painel", "Open panel")}</Button>
+            <Button size="small" onClick={openPanel} className={Margins.top8}>{t("Abrir painel", "Open panel")}</Button>
         </>
     ),
 

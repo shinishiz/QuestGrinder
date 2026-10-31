@@ -48,7 +48,7 @@ Reinicie o Discord e ative o **QuestGrinder** em Configurações → Plugins.
 | Item | Situação |
 |---|---|
 | Versão atual | [![versão](https://img.shields.io/github/v/release/shinishiz/QuestGrinder?style=flat-square&label=)](https://github.com/shinishiz/QuestGrinder/releases/latest) |
-| Testado com | Equicord `a5753f70` (28/10/2026), Discord Stable 1.0.167 |
+| Testado com | Equicord `8d0ebf35` (30/10/2026), Discord Stable 1.0.168 |
 | Linux | Testado |
 | Windows e macOS | Não testado ainda. O plugin não usa nada específico do Linux, mas o atualizador precisa do `git` e do `node` no PATH, como o próprio Equicord |
 | Vesktop e Equibop | Só missões de vídeo. Jogo e atividade precisam do app oficial do Discord |
@@ -130,7 +130,7 @@ Restart Discord and enable **QuestGrinder** in Settings → Plugins.
 
 ### Compatibility
 
-Tested on Linux with Equicord `a5753f70` (2026-10-28) and Discord Stable 1.0.167. Windows and macOS aren't tested yet; nothing in the plugin is Linux-specific, but the updater needs `git` and `node` on your PATH, just like Equicord itself. On Vesktop and Equibop only video quests work. Each [release](https://github.com/shinishiz/QuestGrinder/releases) lists the environment it was tested on.
+Tested on Linux with Equicord `8d0ebf35` (2026-10-30) and Discord Stable 1.0.168. Windows and macOS aren't tested yet; nothing in the plugin is Linux-specific, but the updater needs `git` and `node` on your PATH, just like Equicord itself. On Vesktop and Equibop only video quests work. Each [release](https://github.com/shinishiz/QuestGrinder/releases) lists the environment it was tested on.
 
 ### Updates
 
